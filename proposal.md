@@ -63,8 +63,8 @@ On this iteration of Tower Defense users will be able to,
 
 My game will consist of two pages. An introductory page to explain the games simple mechanics as well as links to my Github, Linkedin, Personal Site, and Full Stack website. The first page will also link you to the second page where my game will be rendered. On the second page will be the game board rendered in the center of the page. On the bottom will be icons to link all of the necessary sites again. On the left-hand side will feature the High-scores(bonus). On the right of the page will have a button to pause and un-pause the game(bonus). On top will be several container div elements that show the current level(bonus) amount of experience points(bonus) and health points left to the player. Once Upgrades for towers are implemented there will be another container that shows information on a selected tower as well as a button that allows an upgrade.
 
-[image one]
-[image two]
+![image one]()
+![image two]()
 
 ## Architecture and Technologies
 This project will implement two main technologies
@@ -89,8 +89,8 @@ This project will implement two main technologies
 ### Day 1:
 Learn as much about Canvas as possible and setup the entry file. Create all necessary `.js` files with a basic skeleton of future methods/functions. Desired output for the day will be to render the board onto the page with a clear path that the enemies will be taking to traverse the board.
 ### Day 2:
-Build out the `enemy.js` file and start rendering enemies to the board. Enemies will take the shape of a colored circle to start. Desired output at the end of the day will be to have the movement path for the enemies built out and enemies correctly rendering and following the path.
+Build out the `enemy.js` file and start rendering enemies to the board. Enemies will take the shape of a colored circle to start. Desired output at the end of the day will be to have the movement path for the enemies built out and enemies correctly rendering and following the path. Enemies will also have a slow move speed to help projectiles correctly hit them.
 ### Day 3:
-Day three will be focused on creating tower objects and rendering them correctly to the board. Apart of this day will be focused on quickly building out the `projectile.js` file and getting the towers to shoot projectile objects. Building out the logic for search radius and direction of projectiles will be focused on day 4 & 5. Desired output for day three will be to render towers on the board and fire projectiles at a steady consistent rate across the board.
+Day three will be focused on creating tower objects and rendering them correctly to the board. Apart of this day will be focused on quickly building out the `projectile.js` file and getting the towers to shoot projectile objects. Building out the logic for search radius and direction of projectiles will be focused on day 4 & 5. Desired output for day three will be to render towers on the board and fire projectiles at a steady consistent rate across the board. Projectiles will move very quickly but slow enough that players can still see them.
 ### Day 4 & 5:
 These two days will be heavily focused on the simple AI of the towers. Towers will have a radius that an enemy must be in in order for the tower to attack it. Along with search radius day 4 and 5 will focus on the towers being able to shoot a projectile towards where an enemy currently is and have the projectile either track the enemy correctly or move ahead of where the enemy currently is so the collision will look realistic. The last portion of day 5 will be focused on getting collision on the enemies and removing them from the board when they are hit.
