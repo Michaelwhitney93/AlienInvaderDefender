@@ -63,8 +63,8 @@ On this iteration of Tower Defense users will be able to,
 
 My game will consist of two pages. An introductory page to explain the games simple mechanics as well as links to my Github, Linkedin, Personal Site, and Full Stack website. The first page will also link you to the second page where my game will be rendered. On the second page will be the game board rendered in the center of the page. On the bottom will be icons to link all of the necessary sites again. On the left-hand side will feature the High-scores(bonus). On the right of the page will have a button to pause and un-pause the game(bonus). On top will be several container div elements that show the current level(bonus) amount of experience points(bonus) and health points left to the player. Once Upgrades for towers are implemented there will be another container that shows information on a selected tower as well as a button that allows an upgrade.
 
-![image one]()
-![image two]()
+![image one](https://github.com/Michaelwhitney93/JavascriptGame/blob/master/images/first-page.png)
+![image two](https://github.com/Michaelwhitney93/JavascriptGame/blob/master/images/game-page.png)
 
 ## Architecture and Technologies
 This project will implement two main technologies
