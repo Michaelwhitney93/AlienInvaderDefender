@@ -5,26 +5,40 @@ const ctx = board.getContext('2d');
 const ctz = score.getContext('2d');
 // Info Board has a height of 100 and width 800
 // Main board has a width of 800 and height 600
+let game = {
+    healthPoints: 10,
+    expPoints: 5000,
+    level: 1,
+};
+// let healthPoints = 10;
+// let expPoints = 500000;
+// let level = 1;
 
-let healthPoints = 10;
-let expPoints = 50;
-let level = 1;
-
+const enemyImg = new Image();
+enemyImg.src = "./assets/images/Aliens.png";
+const enemyDown = new Image();
+enemyDown.src = "./assets/images/Aliensdown.png";
+const enemyLeft = new Image();
+enemyLeft.src = "./assets/images/Aliensright.png";
+const towerImg = new Image();
+towerImg.src = "./assets/images/turret.png";
+const bulletImg = new Image();
+bulletImg.src = "./assets/images/Ammo.png";
 
 function drawHealth() {
     ctz.font = "20px Arial Black";
     ctz.fillStyle = "black";
-    ctz.fillText("Health: " + healthPoints, 670, 60);
+    ctz.fillText("Health: " + game.healthPoints, 670, 60);
 }
 function drawLevel() {
     ctz.font = "28px Arial Black";
     ctz.fillStyle = "black";
-    ctz.fillText("Level " + level, 335, 60);
+    ctz.fillText("Level " + game.level, 335, 60);
 }
 function drawExp() {
     ctz.font = "20px Arial Black";
     ctz.fillStyle = "black";
-    ctz.fillText("EXP: " + expPoints, 540, 60);
+    ctz.fillText("EXP: " + game.expPoints, 540, 60);
 }
 function drawStats() {
     drawHealth();
@@ -212,11 +226,13 @@ let edx = 1.5;
 let edy = 0;
 let enemyRadius = 20;
 let start = true;
-let healthUp = (level * 0.5);
-let enemies = [{x: 0, y: 105, path: 1, dx: 1.5, dy: 0, health: 1, dmg: 0 }];
+let healthUp = 9 + (game.level * 0.75);
+let enemyNum = 0;
+let enemies = [{x: 0, y: 105, path: 1, dx: 1.5, dy: 0, health: 1, dmg: 0, num: enemyNum }];
 
 function enemy() {
-    enemies.push({ x: 0, y: 105, path: 1, dx: 1.5, dy: 0, health: 10, dmg: 1 });
+    enemyNum++;
+    enemies.push({ x: 0, y: 105, path: 1, dx: 1.5, dy: 0, health: healthUp, dmg: 1, num: enemyNum });
 }
 let easyEnemy = 1000;
 let hardEnemy = 80;
@@ -233,11 +249,14 @@ function drawEnemies() {
     for (let i = 0; i < enemies.length; i++) {
         let enemy = enemies[i];
         if (enemy.health > 0) {
-            ctx.beginPath();
-            ctx.arc(enemy.x, enemy.y, enemyRadius, 0, Math.PI*2);
-            ctx.fillStyle = "#A20E0E";
-            ctx.fill();
-            ctx.closePath();
+            // debugger
+            if (enemy.path === 1 || enemy.path === 5) {
+                ctx.drawImage(enemyImg, enemy.x - 20, enemy.y - 20, 40, 40);
+            } else if (enemy.path === 2 || enemy.path === 4 || enemy.path === 6) {
+                ctx.drawImage(enemyDown, enemy.x - 20, enemy.y - 20, 40, 40);
+            } else if (enemy.path === 3) {
+                ctx.drawImage(enemyLeft, enemy.x - 20, enemy.y - 20, 40, 40);
+            }
         }
     }
 }
@@ -298,7 +317,7 @@ function removeHealth() {
     for (let i = 0; i < enemies.length; i++) {
         let enemy = enemies[i];
         if (enemy.y >= board.height && enemy.health > 0) {
-            healthPoints -= enemy.dmg;
+            game.healthPoints -= enemy.dmg;
         }
     }
 }
@@ -330,26 +349,27 @@ let towerRadius = 20;
 let towersArr = [];
 
 let towers = {
-    first: {x: 50, y: 20, width: 50, height: 50, level: 1, status: "open", searchRadius: 100, dmg: 5, target: [] },
-    second: {x: 50, y: 140, width: 50, height: 50, level: 1, status: "open", searchRadius: 100, dmg: 5, target: [] },
-    third: {x: 580, y: 140, width: 50, height: 50, level: 1, status: "open", searchRadius: 100, dmg: 5, target: [] },
-    fourth: {x: 160, y: 260, width: 50, height: 50, level: 1, status: "open", searchRadius: 100, dmg: 5, target: [] },
-    fifth: {x: 160, y: 340, width: 50, height: 50, level: 1, status: "open", searchRadius: 100, dmg: 5, target: [] },
-    sixth: {x: 580, y: 460, width: 50, height: 50, level: 1, status: "open", searchRadius: 100, dmg: 5, target: [] },
+    first: {x: 50, y: 20, width: 50, height: 50, level: 1, status: "open", searchRadius: 150, dmg: 5, target: [] },
+    second: {x: 50, y: 140, width: 50, height: 50, level: 1, status: "open", searchRadius: 150, dmg: 5, target: [] },
+    third: {x: 580, y: 140, width: 50, height: 50, level: 1, status: "open", searchRadius: 150, dmg: 5, target: [] },
+    fourth: {x: 160, y: 260, width: 50, height: 50, level: 1, status: "open", searchRadius: 150, dmg: 5, target: [] },
+    fifth: {x: 160, y: 340, width: 50, height: 50, level: 1, status: "open", searchRadius: 150, dmg: 5, target: [] },
+    sixth: {x: 580, y: 460, width: 50, height: 50, level: 1, status: "open", searchRadius: 150, dmg: 5, target: [] },
 };
 
 function addTower(position) {
-    if (towers[position].status === "open" && expPoints >= 50) {
+    if (towers[position].status === "open" && game.expPoints >= 50) {
         let tower = towers[position];
         tower.status = "filled";
         towersArr.push(position);
-        expPoints -= 50;
+        game.expPoints -= 50;
     } else if (towers[position].status === "filled") {
         let tower = towers[position];
-        if (expPoints >= (tower.level * 50)) {
-            expPoints -= (tower.level * 50);
+        if (game.expPoints >= (tower.level * 50)) {
+            game.expPoints -= (tower.level * 50);
             tower.level++;
             tower.dmg++;
+            tower.searchRadius += 2;
         }
     }
 }
@@ -358,27 +378,69 @@ function drawTowers() {
     for (let i = 0; i < towersArr.length; i++) {
         let position = towersArr[i];
         let tower = towers[position];
-        ctx.beginPath();
-        ctx.arc(tower.x + 25, tower.y + 25, towerRadius, 0, Math.PI*2);
-        ctx.fillStyle = "#992DA9";
-        ctx.fill();
-        ctx.closePath();
+        // ctx.beginPath();
+        // ctx.arc(tower.x + 25, tower.y + 25, towerRadius, 0, Math.PI*2);
+        // ctx.fillStyle = "#992DA9";
+        // ctx.fill();
+        // ctx.closePath();
+        ctx.drawImage(towerImg, tower.x + 10, tower.y , 30, 50);
 
-
-        ctx.font = "12px Arial Black";
-        ctx.fillStyle = "black";
-        ctx.fillText(`${tower.level}`, tower.x + 22, tower.y + 27);
+        if (position === "first" || position === "second" || position === "fourth" || position === "fifth") {
+            ctx.font = "12px Arial Black";
+            ctx.fillStyle = "black";
+            ctx.fillText(`Level: ${tower.level}`, tower.x + 60, tower.y + 27);
+        } else {
+            ctx.font = "12px Arial Black";
+            ctx.fillStyle = "black";
+            ctx.fillText(`Level: ${tower.level}`, tower.x - 60, tower.y + 27);
+        }
     }
 }
 
 function targetEnemy() {
     for (let i = 0; i < towersArr.length; i++) {
         let tower = towers[towersArr[i]];
-        if (enemies[0] && tower.target.length === 0) {
-            tower.target.push({x: enemies[0].x, y: enemies[0].y });
-        } 
+        for (let j = enemies.length - 1; j >= 0; j--) {
+            let enemy = enemies[j];
+            if (enemy.x > (tower.x + 25) - tower.searchRadius && enemy.x < (tower.x + 25) + tower.searchRadius && enemy.y > (tower.y + 25) - tower.searchRadius && enemy.y < (tower.y + 25) + tower.searchRadius) {
+                if (tower.target[0] === undefined && enemies[j] !== undefined) {
+                    tower.target[0] = enemy;
+                    continue;
+                } else if (tower.target[0].enemyNum === enemy.enemyNum && enemy.health > 0) {
+                    tower.target[0] = enemy;
+                    continue;
+                }
+                if (tower.target[0].enemyNum === enemy.enemyNum && enemy.x < tower.x - tower.searchRadius && enemy.x > tower.x + tower.searchRadius && enemy.y < tower.y - tower.searchRadius && enemy.y > tower.y + tower.searchRadius) {
+                    tower.target[0] = undefined;
+                    continue;
+                }
+            }
+        }
     }
 }
+
+// function removeTargetEnemy() {
+//     for (let i = 0; i < towersArr.length; i++) {
+//         let tower = towers[towersArr[i]];
+//         for (let j = 0; j < enemies.length; j++) {
+//             let enemy = enemies[j];
+//             if (tower.target[0] !== undefined) {
+//                 if (tower.target[0].enemyNum === enemy.enemyNum) {
+//                     break;
+//                 }
+//             }
+//             tower.target[0] = undefined;
+//         }
+//     }
+// }
+// function targetEnemy() {
+//     for (let i = 0; i < towersArr.length; i++) {
+//         let tower = towers[towersArr[i]];
+//         if (enemies[0] && tower.target.length === 0) {
+//             tower.target.push({x: enemies[0].x, y: enemies[0].y });
+//         } 
+//     }
+// }
 
 
 //PROJECTILES !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -405,26 +467,33 @@ function addProjectiles() {
     if (enemies.length > 0) {
         for (let i = 0; i < towersArr.length; i++) {
             let tower = towers[towersArr[i]];
-            let x = tower.x + 25;
-            let y = tower.y + 25;
-            let j = 0;
-            if (enemies[j].x === undefined) {
-                j++;
+            let x = tower.x + 15;
+            let y = tower.y ;
+
+            let enemy = tower.target[0];
+            if (enemy !== undefined && enemy.health > 0) {
+                let endX = enemy.x;
+                let endY = enemy.y;
+                if (enemy.path === 1 || enemy.path === 5) {
+                    endX += 16;
+                } else if (enemy.path === 2 || enemy.path === 4 || enemy.path === 6) {
+                    endY += 16;
+                } else if (enemy.path === 3) {
+                    endX -= 16;
+                }
+                let lengthX = endX - x;
+                let lengthY = endY - y;
+                let dx = lengthX / 10;
+                let dy = lengthY / 10;
+                projectile(x, y, -dx, -dy, tower.dmg);
+                tower.target[0] = undefined;
             }
-            let endX = enemies[j].x;
-            let endY = enemies[j].y;
-            if (enemies[j].path === 1 || enemies[j].path === 5) {
-                endX += 15;
-            } else if (enemies[j].path === 2 || enemies[j].path === 4 || enemies[j].path === 6) {
-                endY += 15;
-            } else if (enemies[j].path === 3) {
-                endX -= 15;
-            }
-            let lengthX = endX - x;
-            let lengthY = endY - y;
-            let dx = lengthX / 15;
-            let dy = lengthY / 15;
-            projectile(x, y, -dx, -dy, tower.dmg);
+            // let j = 0;
+            // if (enemies[j].x === undefined) {
+            //     j++;
+            // }
+            // let endX = enemies[j].x;
+            // let endY = enemies[j].y;
         }
     }
 }
@@ -432,11 +501,13 @@ function addProjectiles() {
 function drawProjectiles() {
     for (let i = 0; i < projectiles.length; i++) {
         let projectile = projectiles[i];
-        ctx.beginPath();
-        ctx.arc(projectile.x, projectile.y, 10, 0, Math.PI*2);
-        ctx.fillStyle = "#E6EC42";
-        ctx.fill();
-        ctx.closePath();
+        // ctx.beginPath();
+        // ctx.arc(projectile.x, projectile.y, 7, 0, Math.PI*2);
+        // ctx.fillStyle = "#E6EC42";
+        // ctx.fill();
+        // ctx.closePath();
+
+        ctx.drawImage(bulletImg, projectile.x, projectile.y, 20, 20);
     }
 }
 function removeProjectile() {
@@ -452,7 +523,7 @@ function collision() {
         let projectile = projectiles[i];
         for (let j = 0; j < enemies.length; j++) {
             let enemy = enemies[j];
-            if (projectile.x + 10 > enemy.x && projectile.x - 10 < enemy.x + enemyRadius && projectile.y + 10 > enemy.y && projectile.y - 10 < enemy.y + enemyRadius && enemy.health > 0) {
+            if (projectile.x + 5 > enemy.x && projectile.x - 5 < enemy.x + 20 && projectile.y + 15 > enemy.y && projectile.y - 5 < enemy.y + 10 && enemy.health > 0) {
                 enemy.health -= projectile.dmg;
                 projectile.dmg = 0;
             }
@@ -476,9 +547,9 @@ function collision() {
 //STILL BOARD.JS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 function restart() {
-    level++;
-    expPoints += 50;
-    addEnemies(level);
+    game.level++;
+    game.expPoints += 50;
+    addEnemies(game.level);
 }
 function nextLevel() {
     let end = true;
@@ -502,6 +573,7 @@ function draw() {
     drawEnemies();
     drawTowers();
 
+    // removeTargetEnemy();
     targetEnemy();
     drawProjectiles();
     moveProjectiles();
@@ -516,7 +588,7 @@ function draw() {
 
     nextLevel();
 
-    if (healthPoints === 0) {
+    if (game.healthPoints === 0) {
         alert("YOU LOSE =(");
         document.location.reload();
     }
@@ -525,5 +597,5 @@ function draw() {
 let easyFire = 40;
 let hardFire = 1000;
 setInterval(addProjectiles, 700);
-addEnemies(level);
+addEnemies(game.level);
 draw();

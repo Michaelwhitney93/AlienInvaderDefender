@@ -27,7 +27,7 @@ canvas.top {
     height: 50px;
     width: 50px;
     position: absolute;
-    border: solid white;
+    border: solid 0.5px white;
     top: 175px;
     left: 611px;
 }
@@ -37,7 +37,7 @@ canvas.top {
     height: 50px;
     width: 50px;
     position: absolute;
-    border: solid white;
+    border: solid 0.5px white;
     top: 294px;
     left: 611px;
 }
@@ -46,7 +46,7 @@ canvas.top {
     height: 50px;
     width: 50px;
     position: absolute;
-    border: solid white;
+    border: solid 0.5px white;
     top: 294px;
     left: 1141px;
 }
@@ -55,7 +55,7 @@ canvas.top {
     height: 50px;
     width: 50px;
     position: absolute;
-    border: solid white;
+    border: solid 0.5px white;
     top: 413px;
     left: 720px;
 }
@@ -64,7 +64,7 @@ canvas.top {
     height: 50px;
     width: 50px;
     position: absolute;
-    border: solid white;
+    border: solid 0.5px white;
     top: 494px;
     left: 720px;
 }
@@ -73,7 +73,7 @@ canvas.top {
     height: 50px;
     width: 50px;
     position: absolute;
-    border: solid white;
+    border: solid 0.5px white;
     top: 614px;
     left: 1141px;
 }
