@@ -7,7 +7,7 @@ const ctz = score.getContext('2d');
 // Main board has a width of 800 and height 600
 let game = {
     healthPoints: 10,
-    expPoints: 5000,
+    expPoints: 50,
     level: 1,
 };
 // let healthPoints = 10;
@@ -22,22 +22,28 @@ const enemyLeft = new Image();
 enemyLeft.src = "./assets/images/Aliensright.png";
 const towerImg = new Image();
 towerImg.src = "./assets/images/turret.png";
+const towerImg2 = new Image();
+towerImg2.src = "./assets/images/turret2.png";
+const towerImg3 = new Image();
+towerImg3.src = "./assets/images/turret3.png";
+const towerImg4 = new Image();
+towerImg4.src = "./assets/images/turretMax.png";
 const bulletImg = new Image();
 bulletImg.src = "./assets/images/Ammo.png";
 
 function drawHealth() {
     ctz.font = "20px Arial Black";
-    ctz.fillStyle = "black";
+    ctz.fillStyle = "white";
     ctz.fillText("Health: " + game.healthPoints, 670, 60);
 }
 function drawLevel() {
     ctz.font = "28px Arial Black";
-    ctz.fillStyle = "black";
+    ctz.fillStyle = "white";
     ctz.fillText("Level " + game.level, 335, 60);
 }
 function drawExp() {
     ctz.font = "20px Arial Black";
-    ctz.fillStyle = "black";
+    ctz.fillStyle = "white";
     ctz.fillText("EXP: " + game.expPoints, 540, 60);
 }
 function drawStats() {
@@ -226,11 +232,11 @@ let edx = 1.5;
 let edy = 0;
 let enemyRadius = 20;
 let start = true;
-let healthUp = 9 + (game.level * 0.75);
 let enemyNum = 0;
 let enemies = [{x: 0, y: 105, path: 1, dx: 1.5, dy: 0, health: 1, dmg: 0, num: enemyNum }];
 
 function enemy() {
+    let healthUp = 9 + (game.level * 0.75);
     enemyNum++;
     enemies.push({ x: 0, y: 105, path: 1, dx: 1.5, dy: 0, health: healthUp, dmg: 1, num: enemyNum });
 }
@@ -383,15 +389,21 @@ function drawTowers() {
         // ctx.fillStyle = "#992DA9";
         // ctx.fill();
         // ctx.closePath();
-        ctx.drawImage(towerImg, tower.x + 10, tower.y , 30, 50);
+        if (tower.level < 3) {
+            ctx.drawImage(towerImg2, tower.x + 10, tower.y , 30, 50);
+        } else if (tower.level < 5 ) {
+            ctx.drawImage(towerImg3, tower.x + 10, tower.y, 30, 50);
+        } else if (tower.level >= 5) {
+            ctx.drawImage(towerImg4, tower.x + 10, tower.y, 30, 50);
+        }
 
         if (position === "first" || position === "second" || position === "fourth" || position === "fifth") {
             ctx.font = "12px Arial Black";
-            ctx.fillStyle = "black";
+            ctx.fillStyle = "white";
             ctx.fillText(`Level: ${tower.level}`, tower.x + 60, tower.y + 27);
         } else {
             ctx.font = "12px Arial Black";
-            ctx.fillStyle = "black";
+            ctx.fillStyle = "white";
             ctx.fillText(`Level: ${tower.level}`, tower.x - 60, tower.y + 27);
         }
     }
@@ -501,11 +513,6 @@ function addProjectiles() {
 function drawProjectiles() {
     for (let i = 0; i < projectiles.length; i++) {
         let projectile = projectiles[i];
-        // ctx.beginPath();
-        // ctx.arc(projectile.x, projectile.y, 7, 0, Math.PI*2);
-        // ctx.fillStyle = "#E6EC42";
-        // ctx.fill();
-        // ctx.closePath();
 
         ctx.drawImage(bulletImg, projectile.x, projectile.y, 20, 20);
     }
@@ -523,7 +530,7 @@ function collision() {
         let projectile = projectiles[i];
         for (let j = 0; j < enemies.length; j++) {
             let enemy = enemies[j];
-            if (projectile.x + 5 > enemy.x && projectile.x - 5 < enemy.x + 20 && projectile.y + 15 > enemy.y && projectile.y - 5 < enemy.y + 10 && enemy.health > 0) {
+            if (projectile.x + 5 > enemy.x - 10 && projectile.x - 5 < enemy.x + 10 && projectile.y + 15 > enemy.y - 10 && projectile.y - 5 < enemy.y + 10 && enemy.health > 0) {
                 enemy.health -= projectile.dmg;
                 projectile.dmg = 0;
             }
@@ -588,7 +595,7 @@ function draw() {
 
     nextLevel();
 
-    if (game.healthPoints === 0) {
+    if (game.healthPoints <= 0) {
         alert("YOU LOSE =(");
         document.location.reload();
     }
@@ -598,4 +605,7 @@ let easyFire = 40;
 let hardFire = 1000;
 setInterval(addProjectiles, 700);
 addEnemies(game.level);
-draw();
+document.addEventListener("DOMContentLoaded", () => (
+    draw()
+));
+// draw();
