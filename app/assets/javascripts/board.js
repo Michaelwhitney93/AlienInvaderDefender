@@ -7,7 +7,7 @@ const ctz = score.getContext('2d');
 // Main board has a width of 800 and height 600
 let game = {
     healthPoints: 10,
-    expPoints: 50000,
+    expPoints: 50,
     level: 1,
 };
 
@@ -17,6 +17,12 @@ const enemyDown = new Image();
 enemyDown.src = "./assets/images/Aliensdown.png";
 const enemyLeft = new Image();
 enemyLeft.src = "./assets/images/Aliensright.png";
+const bossImg = new Image();
+bossImg.src = "./assets/images/Boss.png";
+const bossImgDown = new Image();
+bossImgDown.src = "./assets/images/BossDown.png";
+const bossImgLeft = new Image();
+bossImgLeft.src = "./assets/images/BossLeft.png";
 const towerImg = new Image();
 towerImg.src = "./assets/images/turret.png";
 const towerImg2 = new Image();
@@ -230,21 +236,29 @@ let edy = 0;
 let enemyRadius = 20;
 let start = true;
 let enemyNum = 0;
-let enemies = [{x: 0, y: 105, path: 1, dx: 1.5, dy: 0, health: 1, dmg: 0, num: enemyNum }];
+let enemies = [{x: 0, y: 105, path: 1, dx: 1.5, dy: 0, health: 1, dmg: 0, num: enemyNum, boss: false }];
 
 function enemy() {
     let healthUp = 9 + (game.level * 0.75);
-    enemyNum++;
-    enemies.push({ x: 0, y: 105, path: 1, dx: 1.5, dy: 0, health: healthUp, dmg: 1, num: enemyNum });
+    if (game.level % 8 === 0) {
+        enemyNum++;
+        enemies.push({x: 0, y: 105, path: 1, dx: 0.9, dy: 0, health: (75 + game.level * 10), dmg: 3, num: enemyNum, boss: true });
+    } else {
+        enemyNum++;
+        enemies.push({ x: 0, y: 105, path: 1, dx: 1.5, dy: 0, health: healthUp, dmg: 1, num: enemyNum });
+    }
 }
-let easyEnemy = 1000;
-let hardEnemy = 80;
+
 
 
 function addEnemies(lvlNum) {
-    for (let i = 0; i < Math.floor(4 * ((lvlNum + 2) * 0.50)); i++) {
-            setTimeout(enemy, 800*i);
-        }
+    if (game.level % 8 === 0) {
+        enemy();
+    } else {
+        for (let i = 0; i < Math.floor(4 * ((lvlNum + 2) * 0.50)); i++) {
+                setTimeout(enemy, 800*i);
+            }
+    }
         start = false;
 }
 
@@ -254,11 +268,23 @@ function drawEnemies() {
         if (enemy.health > 0) {
             // debugger
             if (enemy.path === 1 || enemy.path === 5) {
-                ctx.drawImage(enemyImg, enemy.x - 20, enemy.y - 20, 40, 40);
+                if (enemy.boss) {
+                    ctx.drawImage(bossImg, enemy.x - 20, enemy.y - 20, 40, 40);
+                } else {
+                    ctx.drawImage(enemyImg, enemy.x - 20, enemy.y - 20, 40, 40);
+                }
             } else if (enemy.path === 2 || enemy.path === 4 || enemy.path === 6) {
-                ctx.drawImage(enemyDown, enemy.x - 20, enemy.y - 20, 40, 40);
+                if (enemy.boss) {
+                    ctx.drawImage(bossImgDown, enemy.x - 20, enemy.y - 20, 40, 40);
+                } else {
+                    ctx.drawImage(enemyDown, enemy.x - 20, enemy.y - 20, 40, 40);
+                }
             } else if (enemy.path === 3) {
-                ctx.drawImage(enemyLeft, enemy.x - 20, enemy.y - 20, 40, 40);
+                if (enemy.boss) {
+                    ctx.drawImage(bossImgLeft, enemy.x - 20, enemy.y - 20, 40, 40);
+                } else {
+                    ctx.drawImage(enemyLeft, enemy.x - 20, enemy.y - 20, 40, 40);
+                }
             }
         }
     }
@@ -290,26 +316,41 @@ function moveEnemies() {
         } else if (enemy.path === 2) {
             enemy.dx = 0;
             enemy.dy = 1.5;
+            if (enemy.boss) {
+                enemy.dy = 1;
+            }
             enemy.x += enemy.dx;
             enemy.y += enemy.dy;
         } else if (enemy.path === 3) {
             enemy.dx = -1.5;
             enemy.dy = 0;
+            if (enemy.boss) {
+                enemy.dx = -1;
+            }
             enemy.x += enemy.dx;
             enemy.y += enemy.dy;
         } else if (enemy.path === 4) {
             enemy.dx = 0;
             enemy.dy = 1.5;
+            if (enemy.boss) {
+                enemy.dy = 1;
+            }
             enemy.x += enemy.dx;
             enemy.y += enemy.dy;
         } else if (enemy.path === 5) {
             enemy.dx = 1.5;
             enemy.dy = 0;
+            if (enemy.boss) {
+                enemy.dx = 1;
+            }
             enemy.x += enemy.dx;
             enemy.y += enemy.dy;
         } else if (enemy.path === 6) {
             enemy.dx = 0;
             enemy.dy = 1.5;
+            if (enemy.boss) {
+                enemy.dy = 1;
+            }
             enemy.x += enemy.dx;
             enemy.y += enemy.dy;
         }
@@ -592,7 +633,7 @@ function draw() {
     removeProjectile();
     removeEnemy();
 
-    nextLevel();
+    setTimeout(nextLevel, 8000);
 
     if (game.healthPoints <= 0) {
         alert("YOU LOSE =(");
