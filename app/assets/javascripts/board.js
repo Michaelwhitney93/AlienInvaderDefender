@@ -389,11 +389,13 @@ function drawTowers() {
         // ctx.fillStyle = "#992DA9";
         // ctx.fill();
         // ctx.closePath();
-        if (tower.level < 3) {
-            ctx.drawImage(towerImg2, tower.x + 10, tower.y , 30, 50);
+        if (tower.level <= 2) {
+            ctx.drawImage(towerImg, tower.x + 10, tower.y , 30, 50);
         } else if (tower.level < 5 ) {
+            ctx.drawImage(towerImg2, tower.x + 10, tower.y, 30, 50);
+        } else if (tower.level < 7) {
             ctx.drawImage(towerImg3, tower.x + 10, tower.y, 30, 50);
-        } else if (tower.level >= 5) {
+        } else if (tower.level >= 7) {
             ctx.drawImage(towerImg4, tower.x + 10, tower.y, 30, 50);
         }
 
