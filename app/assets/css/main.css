@@ -3,6 +3,9 @@
     margin: 0;
 
 }
+html {
+    max-height: 950px;
+}
 body {
     background: url('../images/astro1.jpg');
     min-height: 950px;
@@ -10,11 +13,15 @@ body {
     background-repeat: no-repeat;
     background-position: center center;
 }
+.container{
+    display: block;
+    width: 800px;
+    height: 700px;
+    position: relative;
+    left: 25%;
+}
 canvas{
     background: #1A1C32;
-    /* background-size: 0%; */
-    /* background-position: center center; */
-    display: block;
     margin: 0 auto;
     position: relative;
     top: 50px;
@@ -23,10 +30,9 @@ canvas{
 }
 canvas.top {
     background: black;
-    display: block;
     margin: 0 auto;
     position: relative;
-    top: 50px;
+    top: 60px;
     border: groove 2px black;
 }
 
@@ -34,60 +40,60 @@ canvas.top {
     background: none;
     height: 50px;
     width: 50px;
-    position: absolute;
+    position: relative;
     border: none;
     /* border: solid 0.5px white; */
-    top: 175px;
-    left: 611px;
+    top: -535px;
+    left: 52px;
 }
 
 .second{
     background: none;
     height: 50px;
     width: 50px;
-    position: absolute;
+    position: relative;
     border: none;
     /* border: solid 0.5px white; */
-    top: 294px;
-    left: 611px;
+    top: -415px;
+    left: 0px;
 }
 .third{
     background: none;
     height: 50px;
     width: 50px;
-    position: absolute;
+    position: relative;
     border: none;
     /* border: solid 0.5px white; */
-    top: 294px;
-    left: 1141px;
+    top: -415px;
+    left: 473px;
 }
 .fourth{
     background: none;
     height: 50px;
     width: 50px;
-    position: absolute;
+    position: relative;
     border: none;
     /* border: solid 0.5px white; */
-    top: 413px;
-    left: 720px;
+    top: -295px;
+    left: 0px;
 }
 .fifth{
     background: none;
     height: 50px;
     width: 50px;
-    position: absolute;
+    position: relative;
     border: none;
     /* border: solid 0.5px white; */
-    top: 494px;
-    left: 720px;
+    top: -216px;
+    left: -53px;
 }
 .sixth{
     background: none;
     height: 50px;
     width: 50px;
-    position: absolute;
+    position: relative;
     border: none;
     /* border: solid 0.5px white; */
-    top: 614px;
-    left: 1141px;
+    top: -96px;
+    left: 313px;
 }

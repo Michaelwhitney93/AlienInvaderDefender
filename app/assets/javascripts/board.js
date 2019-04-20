@@ -7,12 +7,9 @@ const ctz = score.getContext('2d');
 // Main board has a width of 800 and height 600
 let game = {
     healthPoints: 10,
-    expPoints: 50,
+    expPoints: 50000,
     level: 1,
 };
-// let healthPoints = 10;
-// let expPoints = 500000;
-// let level = 1;
 
 const enemyImg = new Image();
 enemyImg.src = "./assets/images/Aliens.png";
