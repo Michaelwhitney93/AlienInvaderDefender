@@ -570,7 +570,7 @@ function collision() {
         let projectile = projectiles[i];
         for (let j = 0; j < enemies.length; j++) {
             let enemy = enemies[j];
-            if (projectile.x + 5 > enemy.x - 10 && projectile.x - 5 < enemy.x + 10 && projectile.y + 15 > enemy.y - 10 && projectile.y - 5 < enemy.y + 10 && enemy.health > 0) {
+            if (projectile.x + 5 > enemy.x - 10 && projectile.x - 5 < enemy.x + 10 && projectile.y  > enemy.y - 10 && projectile.y - 5 < enemy.y + 10 && enemy.health > 0) {
                 enemy.health -= projectile.dmg;
                 projectile.dmg = 0;
             }
