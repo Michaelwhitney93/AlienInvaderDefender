@@ -17,6 +17,7 @@ The idea behind a tower defense game is a simple one. Using stationary towers th
 ## Start of Game
 <img>
 Players are presented a button to start the game. On the bottom of the page there are also links going to my Github, Personal site, and my full-stack project. 
+
 ## During Game
 <img>
 
