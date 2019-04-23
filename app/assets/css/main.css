@@ -20,6 +20,31 @@ body {
     position: relative;
     left: 25%;
 }
+.social-icons{
+    position: relative;
+    left: 750px;
+    top: 100px;
+}
+.social-icons a {
+  display: inline-block;
+  height: 4rem;
+  width: 4rem;
+  background-color: black;
+  color: #fff !important;
+  border-radius: 100%;
+  text-align: center;
+  font-size: 2rem;
+  line-height: 4rem;
+  margin-right: 1rem;
+}
+
+.social-icons a:last-child {
+  margin-right: 0;
+}
+
+.social-icons a:hover {
+  background-color: #0000CD;
+}
 canvas{
     background: #1A1C32;
     margin: 0 auto;
