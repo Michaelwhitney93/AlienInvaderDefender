@@ -1,4 +1,4 @@
-# Tower Defense
+# Alien Invader Defender
 The idea behind a tower defense game is a simple one. Using stationary towers that the player can buy or upgrade, the player must try to destroy all enemies before they reach the end of the level. Most tower defense games have a win and lose condition. In my game, I only implemented a lose condition. After each level if the player hasn't lost, the level increases, the player gets more upgrade points, and more enemies are spawned with higher health.
 
 ## Features
