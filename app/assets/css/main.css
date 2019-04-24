@@ -18,14 +18,27 @@ body {
     width: 800px;
     height: 700px;
     position: relative;
-    left: 25%;
+    left: 17%;
 }
 .social-icons{
     position: relative;
-    left: 750px;
-    top: 100px;
+    left: 80px;
+    bottom: -128px;
 }
 .social-icons a {
+  display: inline-block;
+  height: 4rem;
+  width: 4rem;
+  color: #fff;
+  text-align: center;
+  font-size: 2rem;
+  line-height: 4rem;
+  margin-right: 1rem;
+}
+.social-icons a:hover {
+  color: #0000CD;
+}
+/* .social-icons a {
   display: inline-block;
   height: 4rem;
   width: 4rem;
@@ -36,15 +49,15 @@ body {
   font-size: 2rem;
   line-height: 4rem;
   margin-right: 1rem;
-}
+} */
 
 .social-icons a:last-child {
   margin-right: 0;
 }
 
-.social-icons a:hover {
+/* .social-icons a:hover {
   background-color: #0000CD;
-}
+} */
 canvas{
     background: #1A1C32;
     margin: 0 auto;
@@ -70,6 +83,7 @@ canvas.top {
     /* border: solid 0.5px white; */
     top: -535px;
     left: 52px;
+    outline: none;
 }
 
 .second{
@@ -81,6 +95,7 @@ canvas.top {
     /* border: solid 0.5px white; */
     top: -415px;
     left: 0px;
+    outline: none;
 }
 .third{
     background: none;
@@ -91,6 +106,7 @@ canvas.top {
     /* border: solid 0.5px white; */
     top: -415px;
     left: 473px;
+    outline: none;
 }
 .fourth{
     background: none;
@@ -101,6 +117,7 @@ canvas.top {
     /* border: solid 0.5px white; */
     top: -295px;
     left: 0px;
+    outline: none;
 }
 .fifth{
     background: none;
@@ -111,6 +128,7 @@ canvas.top {
     /* border: solid 0.5px white; */
     top: -216px;
     left: -53px;
+    outline: none;
 }
 .sixth{
     background: none;
@@ -121,4 +139,42 @@ canvas.top {
     /* border: solid 0.5px white; */
     top: -96px;
     left: 313px;
+    outline: none;
+}
+.side-bar{
+    background-color: black;
+    color: #fff;
+    position: relative;
+    width: 400px;
+    height: 662px;
+    left: 850px;
+    bottom: 708px;
+    padding: 20px;
+    font-family: 'Righteous', cursive;
+    line-height: 1.8em;
+}
+.intro{
+    width: 100%;
+    height: 240px;
+    margin-bottom: 15px;
+}
+.intro h3{
+    font-weight: 600;
+    font-size: 1.5em;
+    text-align: center;
+    margin-bottom: 15px;
+}
+.intro p{
+
+}
+.instructions{
+    width: 100%;
+    height: 200px;
+    margin-bottom: 15px;
+}
+.instructions p{
+
+}
+.game-start{
+    text-align: center;
 }

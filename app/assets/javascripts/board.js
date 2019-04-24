@@ -9,6 +9,7 @@ let game = {
     healthPoints: 10,
     expPoints: 50,
     level: 1,
+    state: 0,
 };
 
 const enemyImg = new Image();
@@ -236,8 +237,8 @@ let edy = 0;
 let enemyRadius = 20;
 let start = true;
 let enemyNum = 0;
-let enemies = [{x: 0, y: 105, path: 1, dx: 1.5, dy: 0, health: 1, dmg: 0, num: enemyNum, boss: false }];
-
+let enemies = [];
+let firstEnemy = { x: 0, y: 105, path: 1, dx: 1.5, dy: 0, health: 1, dmg: 0, num: enemyNum, boss: false }
 function enemy() {
     let healthUp = 9 + (game.level * 0.75);
     if (game.level % 8 === 0) {
@@ -595,7 +596,11 @@ function collision() {
 
 function restart() {
     game.level++;
-    game.expPoints += 50;
+    if (game.level % 8 === 1) {
+        game.expPoints += 100;
+    } else {
+        game.expPoints += 50;
+    }
     addEnemies(game.level);
 }
 function nextLevel() {
@@ -606,7 +611,7 @@ function nextLevel() {
             return;
         }
     }
-    if (end) {
+    if (end && game.state === 1) {
         restart();
     }
 }
@@ -614,9 +619,7 @@ function nextLevel() {
 function draw() {
     ctx.clearRect(0, 0, board.width, board.height);
     ctz.clearRect(0, 0, score.width, score.height);
-    drawStats();
-    drawPath();
-    drawTowerPos();
+    drawBoard();
     drawEnemies();
     drawTowers();
 
@@ -636,16 +639,32 @@ function draw() {
     setTimeout(nextLevel, 8000);
 
     if (game.healthPoints <= 0) {
-        alert("YOU LOSE =(");
         document.location.reload();
+        clearInterval(projectileInterval);
+        game.state = 0;
+        alert("YOU LOSE =(");
     }
     requestAnimationFrame(draw);
 }
-let easyFire = 40;
-let hardFire = 1000;
-setInterval(addProjectiles, 700);
-addEnemies(game.level);
-document.addEventListener("DOMContentLoaded", () => (
-    draw()
-));
-// draw();
+function drawBoard() {
+    drawStats();
+    drawPath();
+    drawTowerPos();
+}
+
+let projectileInterval;
+
+function startGame() {
+    game.state = 1;
+    draw();
+    rojectileInterval = setInterval(addProjectiles, 700);
+    addEnemies(game.level);
+}
+document.addEventListener("keydown", event => {
+    if (event.key === " ") {
+        startGame();
+    }
+});
+
+drawBoard();
+
