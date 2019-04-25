@@ -240,13 +240,13 @@ let enemyNum = 0;
 let enemies = [];
 let firstEnemy = { x: 0, y: 105, path: 1, dx: 1.5, dy: 0, health: 1, dmg: 0, num: enemyNum, boss: false }
 function enemy() {
-    let healthUp = 9 + (game.level * 0.75);
+    let healthUp = 10 + (game.level * 5);
     if (game.level % 8 === 0) {
         enemyNum++;
-        enemies.push({x: 0, y: 105, path: 1, dx: 0.9, dy: 0, health: (75 + game.level * 10), dmg: 3, num: enemyNum, boss: true });
+        enemies.push({x: 0, y: 105, path: 1, dx: 1, dy: 0, health: (250 + game.level * 12), dmg: 3, num: enemyNum, boss: true });
     } else {
         enemyNum++;
-        enemies.push({ x: 0, y: 105, path: 1, dx: 1.5, dy: 0, health: healthUp, dmg: 1, num: enemyNum });
+        enemies.push({ x: 0, y: 105, path: 1, dx: 2, dy: 0, health: healthUp, dmg: 1, num: enemyNum });
     }
 }
 
@@ -256,7 +256,7 @@ function addEnemies(lvlNum) {
     if (game.level % 8 === 0) {
         enemy();
     } else {
-        for (let i = 0; i < Math.floor(4 * ((lvlNum + 2) * 0.50)); i++) {
+        for (let i = 0; i < Math.floor(4 * ((lvlNum + 2) * 0.75)); i++) {
                 setTimeout(enemy, 800*i);
             }
     }
@@ -316,14 +316,14 @@ function moveEnemies() {
             enemy.y += enemy.dy;
         } else if (enemy.path === 2) {
             enemy.dx = 0;
-            enemy.dy = 1.5;
+            enemy.dy = 2;
             if (enemy.boss) {
                 enemy.dy = 1;
             }
             enemy.x += enemy.dx;
             enemy.y += enemy.dy;
         } else if (enemy.path === 3) {
-            enemy.dx = -1.5;
+            enemy.dx = -2;
             enemy.dy = 0;
             if (enemy.boss) {
                 enemy.dx = -1;
@@ -332,14 +332,14 @@ function moveEnemies() {
             enemy.y += enemy.dy;
         } else if (enemy.path === 4) {
             enemy.dx = 0;
-            enemy.dy = 1.5;
+            enemy.dy = 2;
             if (enemy.boss) {
                 enemy.dy = 1;
             }
             enemy.x += enemy.dx;
             enemy.y += enemy.dy;
         } else if (enemy.path === 5) {
-            enemy.dx = 1.5;
+            enemy.dx = 2;
             enemy.dy = 0;
             if (enemy.boss) {
                 enemy.dx = 1;
@@ -348,7 +348,7 @@ function moveEnemies() {
             enemy.y += enemy.dy;
         } else if (enemy.path === 6) {
             enemy.dx = 0;
-            enemy.dy = 1.5;
+            enemy.dy = 2;
             if (enemy.boss) {
                 enemy.dy = 1;
             }
@@ -413,7 +413,7 @@ function addTower(position) {
         if (game.expPoints >= (tower.level * 50)) {
             game.expPoints -= (tower.level * 50);
             tower.level++;
-            tower.dmg++;
+            tower.dmg += 2;
             tower.searchRadius += 2;
         }
     }
@@ -528,11 +528,11 @@ function addProjectiles() {
                 let endX = enemy.x;
                 let endY = enemy.y;
                 if (enemy.path === 1 || enemy.path === 5) {
-                    endX += 16;
+                    endX += 20;
                 } else if (enemy.path === 2 || enemy.path === 4 || enemy.path === 6) {
-                    endY += 16;
+                    endY += 20;
                 } else if (enemy.path === 3) {
-                    endX -= 16;
+                    endX -= 20;
                 }
                 let lengthX = endX - x;
                 let lengthY = endY - y;
@@ -597,7 +597,7 @@ function collision() {
 function restart() {
     game.level++;
     if (game.level % 8 === 1) {
-        game.expPoints += 100;
+        game.expPoints += 200;
     } else {
         game.expPoints += 50;
     }
@@ -657,7 +657,7 @@ let projectileInterval;
 function startGame() {
     game.state = 1;
     draw();
-    rojectileInterval = setInterval(addProjectiles, 700);
+    rojectileInterval = setInterval(addProjectiles, 400);
     addEnemies(game.level);
 }
 document.addEventListener("keydown", event => {
