@@ -241,7 +241,7 @@ let enemies = [];
 let firstEnemy = { x: 0, y: 105, path: 1, dx: 1.5, dy: 0, health: 1, dmg: 0, num: enemyNum, boss: false }
 function enemy() {
     let healthUp = 10 + (game.level * 5);
-    if (game.level % 8 === 0) {
+    if (game.level % 5 === 0) {
         enemyNum++;
         enemies.push({x: 0, y: 105, path: 1, dx: 1, dy: 0, health: (250 + game.level * 12), dmg: 3, num: enemyNum, boss: true });
     } else {
@@ -253,7 +253,7 @@ function enemy() {
 
 
 function addEnemies(lvlNum) {
-    if (game.level % 8 === 0) {
+    if (game.level % 5 === 0) {
         enemy();
     } else {
         for (let i = 0; i < Math.floor(4 * ((lvlNum + 2) * 0.75)); i++) {
@@ -596,7 +596,7 @@ function collision() {
 
 function restart() {
     game.level++;
-    if (game.level % 8 === 1) {
+    if (game.level % 5 === 1) {
         game.expPoints += 200;
     } else {
         game.expPoints += 50;
