@@ -432,7 +432,7 @@ function drawTowers() {
             ctx.drawImage(towerImg, tower.x + 10, tower.y , 30, 50);
         } else if (tower.level < 2 ) {
             ctx.drawImage(towerImg2, tower.x + 10, tower.y, 30, 50);
-        } else if (tower.level < 3) {
+        } else if (tower.level <= 4) {
             ctx.drawImage(towerImg3, tower.x + 10, tower.y, 30, 50);
         } else if (tower.level >= 5) {
             ctx.drawImage(towerImg4, tower.x + 10, tower.y, 30, 50);
